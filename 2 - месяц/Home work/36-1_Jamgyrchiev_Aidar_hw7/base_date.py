@@ -136,7 +136,7 @@ if connection is not None:
     # insert_products(connection, ('cheese', 280, 18))
     # update_products_quantity(connection, (3, 2))
     # update_products_price(connection, (380, 14))
-    # delete_products(connection, 10)
+    delete_products(connection, 10)
     select_all_products(connection)
     # select_products(connection)
     # select_products_title(connection)
