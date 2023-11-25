@@ -9,4 +9,4 @@ def bubble_sort(arr):
 
 unsorted_list = [64, 34, 25, 12, 22, 11, 90]
 sorted_list = bubble_sort(unsorted_list)
-print("Отсортированный список (метод пузырьковой сортировки):", sorted_list)
+print("Отсортированный список:", sorted_list)
