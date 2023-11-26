@@ -78,11 +78,11 @@ def select_all_products(conn):
         print(e)
 
 
-def select_products(conn):
-    sql = '''SELECT * FROM products WHERE price >= 100 AND quantity > 5'''
+def select_products(conn, products):
+    sql = '''SELECT * FROM products WHERE price >= ? AND quantity > ?'''
     try:
         cursor = conn.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, products)
         rows_list = cursor.fetchall()
 
         for row in rows_list:
@@ -136,8 +136,8 @@ if connection is not None:
     # insert_products(connection, ('cheese', 280, 18))
     # update_products_quantity(connection, (3, 2))
     # update_products_price(connection, (380, 14))
-    delete_products(connection, 10)
-    select_all_products(connection)
-    # select_products(connection)
+    # delete_products(connection, 10)
+    # select_all_products(connection)
+    select_products(connection, (200, 5))
     # select_products_title(connection)
     connection.close()
