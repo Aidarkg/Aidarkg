@@ -167,7 +167,7 @@ while True:
         selected_city_id = int(selected_city_id)
         if selected_city_id == 0:
             break
-        elif selected_city_id > len(citi) and selected_city_id is None:
+        elif selected_city_id > len(citi):
             print(f'Введите id до {len(citi)}!')
             continue
         else:
