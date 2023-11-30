@@ -128,6 +128,7 @@ def print_cities():
 
 
 def find_students_by_city(city_id):
+    conn = sqlite3.connect('base_date_students')
     sql = '''SELECT students.first_name, students.last_name, countries.title, cities.title, cities.area
                       FROM students
                       INNER JOIN cities ON students.city_id = cities.id
@@ -136,7 +137,6 @@ def find_students_by_city(city_id):
 
     print(f"Ученики в выбранном городе:")
     try:
-        conn = sqlite3.connect('base_date_students')
         cursor = conn.cursor()
         cursor.execute(sql, (city_id,))
         students = cursor.fetchall()
@@ -145,7 +145,7 @@ def find_students_by_city(city_id):
         for student in students:
             print(
                 f"Имя: {student[0]}, Фамилия: {student[1]}, Страна: {student[2]}, "
-                f"Город: {student[3]}, Площадь города: {student[4]}")
+                f"Город: {student[3]}, Площадь города: {student[4]}km2")
 
     except sqlite3.Error as e:
         print(e)
@@ -155,13 +155,23 @@ while True:
     print(f"\nВы можете отобразить список учеников по выбранному id города из "
           f"перечня городов ниже, для выхода из программы введите 0:")
     print_cities()
-    selected_city_id = input("Введите id города: ")
 
-    if selected_city_id == '0':
-        break
+    connect = sqlite3.connect('base_date_students')
+    cursors = connect.cursor()
+
+    cursors.execute('SELECT id, title FROM cities')
+    citi = cursors.fetchall()
+    selected_city_id = input("Введите id города: ")
 
     try:
         selected_city_id = int(selected_city_id)
-        find_students_by_city(selected_city_id)
+        if selected_city_id == 0:
+            break
+        elif selected_city_id > len(citi) and selected_city_id is None:
+            print(f'Введите id до {len(citi)}!')
+            continue
+        else:
+            find_students_by_city(selected_city_id)
     except ValueError:
-        print("Пожалуйста, введите целочисленный id города.")
+        print('Введите корректный id!')
+    connect.close()
