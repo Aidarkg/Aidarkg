@@ -55,7 +55,6 @@ CREATE TABLE countries (
     )
 '''
 
-
 sql_cities_table = '''
 CREATE TABLE cities (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -75,7 +74,6 @@ CREATE TABLE students (
     FOREIGN KEY(city_id) REFERENCES cities (id)
     )
 '''
-
 
 connection = create_connection('base_date_students')
 if connection is not None:
@@ -155,7 +153,7 @@ def find_students_by_city(city_id):
 
 while True:
     print("\nВы можете отобразить список учеников по выбранному id города из "
-        "перечня городов ниже, для выхода из программы введите 0:")
+          "перечня городов ниже, для выхода из программы введите 0:")
     print_cities()
     selected_city_id = input("Введите id города: ")
 
